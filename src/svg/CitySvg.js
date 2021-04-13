@@ -2,46 +2,39 @@ import { useEffect, useState } from 'react';
 
 export const CitySvg = () => {
 	const [houses, setHouses] = useState([]);
+	const [wheel2, setWheel2] = useState();
+	const [wheel, setWheel] = useState();
+  const [index, setIndex] = useState();
+  const [wrapper, setWrapper] = useState()
 
-	useEffect(() => {
-		this.houses = [
-			this.houseOne,
-			this.houseTwo,
-			this.houseThree,
-			this.houseFour,
-			this.houseFive,
-			this.houseSix,
-			this.houseSeven,
-			this.wheel2,
-		];
-		this.index = '10';
-		$('.container').parallax({ scalarX: 5, scalarY: 5 });
-		TweenMax.set(this.wheel, { transformOrigin: '50% 50%' });
-		TweenMax.to(this.wheel, 100, {
-			rotation: '360',
-			ease: Linear.easeNone,
-			repeat: -1,
-		});
-	}, []);
+	// useEffect(() => {
+	// 	// this.index = '10';
+	// 	// $('.container').parallax({ scalarX: 5, scalarY: 5 });
+	// 	// TweenMax.set(this.wheel, { transformOrigin: '50% 50%' });
+	// 	// TweenMax.to(this.wheel, 100, {
+	// 	// 	rotation: '360',
+	// 	// 	ease: Linear.easeNone,
+	// 	// 	repeat: -1,
+	// 	// });
+	// }, []);
 
-	// mouseAction(evt) {
-	//   const index = evt.currentTarget.dataset.project;
-	//   console.log(this.houses[index]);
-	//   this.houses[index].classList.toggle('active');
-	// }
+	const mouseAction = (evt) => {
+	  // const index = evt.currentTarget.dataset.project;
+	  // console.log(this.houses[index]);
+	  // this.houses[index].classList.toggle('active');
+	}
 
 	return (
 		<svg
 			xmlns='http://www.w3.org/2000/svg'
-			ref={(c) => (this.wrapper = c)}
+			ref={(c) => setWrapper(c)}
 			viewBox='0 0 1031.41 441.18'
 			className='container'>
 			<g
 				className='house'
 				id='house-seven'
-				ref={(h) => setHouses(prevState => prevState.concat(h))}
 				data-project={6}
-				onClick={(e) => this.mouseAction(e)}>
+				onClick={(e) => mouseAction(e)}>
 				<g id='bg-fill-2' className='bg-fill'>
 					<path
 						fill='#e82c84'
@@ -70,9 +63,8 @@ export const CitySvg = () => {
 			<g
 				className='house'
 				id='house-six'
-				ref={(h) => setHouses(prevState => prevState.concat(h))}
 				data-project={5}
-				onClick={(e) => this.mouseAction(e)}>
+				onClick={(e) => mouseAction(e)}>
 				<g id='bg-fill' className='bg-fill'>
 					<path fill='#bd9ec9' d='M751.19 225.73h27.99v165.55h-27.99z' />
 					<path
@@ -89,9 +81,8 @@ export const CitySvg = () => {
 			<g
 				className='house'
 				id='house-five'
-				ref={(h) => setHouses((prevState) => prevState.concat(h))}
 				data-project={4}
-				onClick={(e) => this.mouseAction(e)}>
+				onClick={(e) =>mouseAction(e)}>
 				<g id='bg-fill-3' className='bg-fill'>
 					<path
 						fill='#e5432e'
@@ -110,9 +101,8 @@ export const CitySvg = () => {
 			<g
 				className='house'
 				id='house-four'
-				ref={(h) => setHouses((prevState) => prevState.concat(h))}
 				data-project={3}
-				onClick={(e) => this.mouseAction(e)}>
+				onClick={(e) => mouseAction(e)}>
 				<g id='bg-fill-4' className='bg-fill'>
 					<path
 						fill='#e4982f'
@@ -175,9 +165,8 @@ export const CitySvg = () => {
 			<g
 				className='house'
 				id='house-three'
-				ref={(h) => setHouses((prevState) => prevState.concat(h))}
 				data-project={2}
-				onClick={(e) => this.mouseAction(e)}>
+				onClick={(e) => mouseAction(e)}>
 				<g id='bg-fill-5' className='bg-fill'>
 					<path fill='#18a9e2' d='M368.86 301.21h48.57v89.63h-48.57z' />
 					<path
@@ -208,9 +197,8 @@ export const CitySvg = () => {
 			<g
 				className='house'
 				id='house-two'
-				ref={(h) => setHouses((prevState) => prevState.concat(h))}
 				data-project={1}
-				onClick={(e) => this.mouseAction(e)}>
+				onClick={(e) => mouseAction(e)}>
 				<g id='bg-fill-6' className='bg-fill'>
 					<path
 						fill='#51bb9d'
@@ -252,9 +240,8 @@ export const CitySvg = () => {
 			<g
 				className='house'
 				id='house-one'
-				ref={(h) => setHouses((prevState) => prevState.concat(h))}
 				data-project={0}
-				onClick={(e) => this.mouseAction(e)}>
+				onClick={(e) => mouseAction(e)}>
 				<g id='bg-fill-7' className='bg-fill'>
 					<path
 						fill='#b6d788'
@@ -275,10 +262,10 @@ export const CitySvg = () => {
 			<g
 				className='house'
 				id='wheel'
-				onClick={(e) => this.mouseAction(e)}
+				onClick={(e) => mouseAction(e)}
 				data-project={7}
-				ref={(b) => (this.wheel2 = b)}>
-				<g ref={(b) => (this.wheel = b)}>
+				ref={(b) => setWheel2(b)}>
+				<g ref={(b) => setWheel(b)}>
 					<g id='bg-fill-3-2' className='bg-fill'>
 						<circle cx='968.74' cy='279.11' r='4.87' fill='#ff893b' />
 						<circle cx='968.74' cy='375.19' r='4.87' fill='#ff893b' />
