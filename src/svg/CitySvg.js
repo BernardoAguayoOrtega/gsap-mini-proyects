@@ -1,33 +1,32 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import { TweenMax, Linear } from 'gsap/all';
 
 export const CitySvg = () => {
-	const [houses, setHouses] = useState([]);
-	const [wheel2, setWheel2] = useState();
-	const [wheel, setWheel] = useState();
-  const [index, setIndex] = useState();
-  const [wrapper, setWrapper] = useState()
+	const wrapperRef = useRef(undefined);
+	const [index, setIndex] = useState(10);
 
-	// useEffect(() => {
-	// 	// this.index = '10';
-	// 	// $('.container').parallax({ scalarX: 5, scalarY: 5 });
-	// 	// TweenMax.set(this.wheel, { transformOrigin: '50% 50%' });
-	// 	// TweenMax.to(this.wheel, 100, {
-	// 	// 	rotation: '360',
-	// 	// 	ease: Linear.easeNone,
-	// 	// 	repeat: -1,
-	// 	// });
-	// }, []);
+	useEffect(() => {
+		const element = wrapperRef.current;
+		TweenMax.set(element.querySelector('#wheel'), {
+			transformOrigin: '50% 50%',
+		});
+		TweenMax.to(element.querySelector('#wheel'), 100, {
+			rotation: '360',
+			ease: Linear.easeNone,
+			repeat: -1,
+		});
+	}, []);
 
 	const mouseAction = (evt) => {
-	  // const index = evt.currentTarget.dataset.project;
-	  // console.log(this.houses[index]);
-	  // this.houses[index].classList.toggle('active');
-	}
+		const index = evt.currentTarget.dataset.project;
+		console.log(this.houses[index]);
+		this.houses[index].classList.toggle('active');
+	};
 
 	return (
 		<svg
 			xmlns='http://www.w3.org/2000/svg'
-			ref={(c) => setWrapper(c)}
+			ref={wrapperRef}
 			viewBox='0 0 1031.41 441.18'
 			className='container'>
 			<g
@@ -82,7 +81,7 @@ export const CitySvg = () => {
 				className='house'
 				id='house-five'
 				data-project={4}
-				onClick={(e) =>mouseAction(e)}>
+				onClick={(e) => mouseAction(e)}>
 				<g id='bg-fill-3' className='bg-fill'>
 					<path
 						fill='#e5432e'
@@ -261,11 +260,10 @@ export const CitySvg = () => {
 			</g>
 			<g
 				className='house'
-				id='wheel'
+				id='wheel2'
 				onClick={(e) => mouseAction(e)}
-				data-project={7}
-				ref={(b) => setWheel2(b)}>
-				<g ref={(b) => setWheel(b)}>
+				data-project={7}>
+				<g id='wheel'>
 					<g id='bg-fill-3-2' className='bg-fill'>
 						<circle cx='968.74' cy='279.11' r='4.87' fill='#ff893b' />
 						<circle cx='968.74' cy='375.19' r='4.87' fill='#ff893b' />
