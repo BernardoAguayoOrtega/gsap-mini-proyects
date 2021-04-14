@@ -5,7 +5,6 @@ import './city.css';
 export const CitySvg = () => {
 	const wrapperRef = useRef(undefined);
 	const [background, setBackground] = useState();
-	const [index, setIndex] = useState(10);
 
 	const moveBackground = (e) => {
 		const reset = () => {
