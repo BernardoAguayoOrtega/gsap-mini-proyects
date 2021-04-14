@@ -1,9 +1,9 @@
-import { CitySvg } from './svg/CitySvg';
+import { LampSvg } from './svg/LampSvg';
 
 function App() {
 	return (
 		<div className='App'>
-			<CitySvg />
+			<LampSvg />
 		</div>
 	);
 }
