@@ -1,12 +1,44 @@
 import { useEffect, useRef, useState } from 'react';
-import { TweenMax, Linear } from 'gsap/all';
+import { TweenMax, Linear, TweenLite } from 'gsap/all';
+import './city.css';
 
 export const CitySvg = () => {
 	const wrapperRef = useRef(undefined);
+	const [background, setBackground] = useState();
 	const [index, setIndex] = useState(10);
+
+	const moveBackground = (e) => {
+		const reset = () => {
+			TweenMax.to(background.querySelector('#clouds'), 5, {
+				x: 0,
+				y: 0,
+				ease: Linear.easeNone,
+			});
+		};
+
+		TweenLite.to(background.querySelector('#clouds'), 5, {
+			x: `${e.pageX * 0.05}`,
+			y: `${e.pageY * 0.05}`,
+			onComplete: reset,
+		});
+
+		TweenLite.to(background.querySelector('#lines'), 5, {
+			x: `${e.pageX * 0.05}`,
+			y: `${e.pageY * 0.05}`,
+			onComplete: reset,
+		});
+
+		TweenLite.to(background.querySelector('#dots'), 5, {
+			x: `${e.pageX * 0.01}`,
+			y: `${e.pageY * 0.01}`,
+			onComplete: reset,
+		});
+	};
 
 	useEffect(() => {
 		const element = wrapperRef.current;
+		setBackground(element);
+		console.log(background);
 		TweenMax.set(element.querySelector('#wheel'), {
 			transformOrigin: '50% 50%',
 		});
@@ -28,7 +60,8 @@ export const CitySvg = () => {
 			xmlns='http://www.w3.org/2000/svg'
 			ref={wrapperRef}
 			viewBox='0 0 1031.41 441.18'
-			className='container'>
+			className='container'
+			onMouseMove={moveBackground}>
 			<g
 				className='house'
 				id='house-seven'
