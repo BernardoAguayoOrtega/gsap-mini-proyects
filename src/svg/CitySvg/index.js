@@ -37,7 +37,6 @@ export const CitySvg = () => {
 	useEffect(() => {
 		const element = wrapperRef.current;
 		setBackground(element);
-		console.log(background);
 		TweenMax.set(element.querySelector('#wheel'), {
 			transformOrigin: '50% 50%',
 		});

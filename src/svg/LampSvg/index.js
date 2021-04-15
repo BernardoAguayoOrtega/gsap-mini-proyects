@@ -1,23 +1,49 @@
-import { TimelineMax } from 'gsap/gsap-core';
-import { useEffect, useRef, useState } from 'react';
+import { TimelineMax, Elastic } from 'gsap/all';
+import { useEffect, useRef } from 'react';
 
 export function LampSvg(props) {
-	const [timeline] = useState(new TimelineMax());
-	const ref = useRef(undefined);
+	const wrapperRef = useRef(undefined);
 
 	useEffect(() => {
-		
+		const tl = new TimelineMax();
+		const element = wrapperRef.current;
+		tl.from(element.querySelector('#background'), 0.5, {
+			opacity: 0,
+			scale: 0,
+			transformOrigin: 'center center',
+		})
+			.staggerFrom(
+				element.querySelectorAll('#table, #table-legs'),
+				0.5,
+				{ y: '-=200', opacity: 0, ease: Elastic.easeOut },
+				0.1,
+			)
+			.from(element.querySelector('.prefix__lamp-leg'), 0.5, {
+				opacity: 0,
+				x: '-200',
+				ease: Elastic.easeOut,
+			})
+			.from(element.querySelector('#lampbt-1'), 0.2, {
+				opacity: 0,
+				scale: 0,
+				transformOrigin: 'center center',
+			})
+			.from(element.querySelector('#lampbt-2'), 0.3, {
+				opacity: 0,
+				transformOrigin: '100% 100%',
+				rotation: '-180deg',
+			});
 	}, []);
 
 	return (
 		<svg
-			ref={ref}
+			ref={wrapperRef}
 			xmlns='http://www.w3.org/2000/svg'
 			xmlnsXlink='http://www.w3.org/1999/xlink'
 			viewBox='0 0 1186.4 662.8'
-			style={{ maxHeight: ' 100vh' }}
+			style={{ maxHeight: '100vh' }}
 			{...props}>
-			<path fill='#2c3e50' d='M-9.7 0h1197.1v662.8H-9.7z' />
+			<path id='background' fill='#2c3e50' d='M-9.7 0h1197.1v662.8H-9.7z' />
 			<defs>
 				<path id='prefix__a' d='M-9.7 0h1197.1v662.8H-9.7z' />
 			</defs>
@@ -25,22 +51,25 @@ export function LampSvg(props) {
 				<use xlinkHref='#prefix__a' overflow='visible' />
 			</clipPath>
 			<path
+				id='table-legs'
 				clipPath='url(#prefix__b)'
 				fill='#edcf94'
 				stroke='#0b0b0b'
 				strokeMiterlimit={10}
 				d='M47.2 626.1h34v56.4h-34zM850.5 626.6h281.4v49.9H850.5z'
 			/>
-			<path
-				d='M1172 626.1H18.4c-2.7 0-5-1.1-5-2.5v-14.3c0-1.4 2.2-2.5 5-2.5H1172c2.7 0 5 1.1 5 2.5v14.3c0 1.4-2.2 2.5-5 2.5z'
-				fill='#edcf94'
-				stroke='#0b0b0b'
-				strokeMiterlimit={10}
-			/>
-			<path
-				fill='#d7b476'
-				d='M851 627.2h280.4v10.5H851zM47.7 626.7h33v6.6h-33z'
-			/>
+			<g id='table'>
+				<path
+					d='M1172 626.1H18.4c-2.7 0-5-1.1-5-2.5v-14.3c0-1.4 2.2-2.5 5-2.5H1172c2.7 0 5 1.1 5 2.5v14.3c0 1.4-2.2 2.5-5 2.5z'
+					fill='#edcf94'
+					stroke='#0b0b0b'
+					strokeMiterlimit={10}
+				/>
+				<path
+					fill='#d7b476'
+					d='M851 627.2h280.4v10.5H851zM47.7 626.7h33v6.6h-33z'
+				/>
+			</g>
 			<g>
 				<path
 					fill='#888889'
@@ -56,6 +85,7 @@ export function LampSvg(props) {
 					strokeMiterlimit={10}
 				/>
 				<path
+					id='random'
 					d='M770.8 510.3H413c-3.2 0-5.8-2.6-5.8-5.8V284.2c0-6.1 4.9-11 11-11h350.6c6.4 0 11.7 5.2 11.7 11.7v215.8c-.1 5.3-4.4 9.6-9.7 9.6z'
 					fill='#202021'
 					stroke='#050606'
@@ -123,7 +153,7 @@ export function LampSvg(props) {
 				/>
 			</g>
 			<g>
-				<g stroke='#0b0b0b' strokeMiterlimit={10}>
+				<g id='lamp' stroke='#0b0b0b' strokeMiterlimit={10}>
 					<g fill='#228370'>
 						<path d='M187.9 333.9l6.9 3.8-123.9 79.4-5.7-5.5 122.7-77.7M198.6 342.1l6.9 4.8-121.4 78.3-5.1-5.5 119.6-77.6' />
 					</g>
@@ -148,7 +178,7 @@ export function LampSvg(props) {
 					stroke='#0b0b0b'
 					strokeMiterlimit={10}
 				/>
-				<g stroke='#0b0b0b' strokeMiterlimit={10}>
+				<g id='lampbt-1' stroke='#0b0b0b' strokeMiterlimit={10}>
 					<path
 						d='M81.6 591.6s10.6-32.8 48.4-31.4c0 0 39 2.3 48.7 31.4H81.6z'
 						fill='#3fbda4'
@@ -158,17 +188,19 @@ export function LampSvg(props) {
 						fill='#70baaf'
 					/>
 				</g>
-				<path
-					d='M182.3 357.8c-8.4 28.4 1.9 61.2 23.2 78.5 1.2-.5-1.2.5 0 0l-3.4-108.7c-9.2 7.5-16.1 17.6-19.8 30.2zM61.3 422.9c0 10.7 8.4 19.6 18.2 19.6h.6L74 404.3c-7.2 2.5-12.7 9.9-12.7 18.6zM83 590.7h39l-8.3-27.8C90.4 569.8 83 590.7 83 590.7z'
-					fill='#2faf97'
-				/>
-				<path
-					d='M220.9 321.6c-.4-.1 26.1-7 46 3.5M271.7 328.3l3.1 1.7M88.5 409.4s9.3 7.1 6.2 16.8M125.8 564.4s17 1 28.6 9.2M160.2 577.1l3.1 2.4'
-					fill='none'
-					stroke='#bfe4e2'
-					strokeLinecap='round'
-					strokeMiterlimit={10}
-				/>
+				<g id='lampbt-2'>
+					<path
+						d='M182.3 357.8c-8.4 28.4 1.9 61.2 23.2 78.5 1.2-.5-1.2.5 0 0l-3.4-108.7c-9.2 7.5-16.1 17.6-19.8 30.2zM61.3 422.9c0 10.7 8.4 19.6 18.2 19.6h.6L74 404.3c-7.2 2.5-12.7 9.9-12.7 18.6zM83 590.7h39l-8.3-27.8C90.4 569.8 83 590.7 83 590.7z'
+						fill='#2faf97'
+					/>
+					<path
+						d='M220.9 321.6c-.4-.1 26.1-7 46 3.5M271.7 328.3l3.1 1.7M88.5 409.4s9.3 7.1 6.2 16.8M125.8 564.4s17 1 28.6 9.2M160.2 577.1l3.1 2.4'
+						fill='none'
+						stroke='#bfe4e2'
+						strokeLinecap='round'
+						strokeMiterlimit={10}
+					/>
+				</g>
 			</g>
 			<g>
 				<path
