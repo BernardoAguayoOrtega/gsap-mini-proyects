@@ -1,13 +1,17 @@
-import { TimelineMax, Elastic } from 'gsap/all';
+import { TimelineMax, Elastic, Back, Linear } from 'gsap/all';
 import { useEffect, useRef } from 'react';
 
 export function LampSvg(props) {
 	const wrapperRef = useRef(undefined);
 
+	const switchLights = () => {
+		
+	}
+
 	useEffect(() => {
 		const tl = new TimelineMax();
 		const element = wrapperRef.current;
-		tl.set(element.querySelector('#lampbt-2'), {
+		tl.set(element.querySelector('#lamp-shadows'), {
 			opacity: 0,
 		})
 			.from(element.querySelector('#background'), 0.5, {
@@ -21,7 +25,7 @@ export function LampSvg(props) {
 				{ y: '-=200', opacity: 0, ease: Elastic.easeOut },
 				0.1,
 			)
-			.from(element.querySelector('.prefix__lamp-leg'), 0.5, {
+			.from(element.querySelector('.prefix__lamp-leg'), 0.2, {
 				opacity: 0,
 				x: '-200',
 				ease: Elastic.easeOut,
@@ -31,11 +35,77 @@ export function LampSvg(props) {
 				scale: 0,
 				transformOrigin: 'center center',
 			})
-			.from(element.querySelector('#lampbt-2'), 0.3, {
+			.from(element.querySelector('#lamp-line-b'), 0.35, {
 				opacity: 0,
 				transformOrigin: '100% 100%',
 				rotation: '-180deg',
-			});
+			})
+			.from(element.querySelector('#lamp-circle'), 0.2, {
+				opacity: 0,
+				x: '-=100',
+				y: '-=100',
+			})
+			.from(element.querySelector('#lamp-line-c'), 0.35, {
+				opacity: 0,
+				transformOrigin: '0% 100%',
+				rotation: '-180deg',
+			})
+			.from(element.querySelector('#lamp-head-1'), 0.2, {
+				opacity: 0,
+				scale: 0,
+				ease: Elastic.easeOut,
+			})
+			.from(element.querySelectorAll('.lamp-head-2'), 0.2, {
+				opacity: 0,
+				transformOrigin: '60% 60%',
+				rotation: '60deg',
+			})
+			.staggerFrom(
+				element.querySelectorAll('#computer > *'),
+				1,
+				{
+					opacity: 0,
+					scale: 0,
+					transformOrigin: 'center center',
+					ease: Back.easeOut,
+				},
+				0.2,
+			)
+			.staggerFrom(
+				element.querySelectorAll('#keyboard > *'),
+				1,
+				{
+					opacity: 0,
+					y: '-=100',
+					ease: Linear.easeInOut,
+				},
+				0.2,
+			)
+			.staggerFrom(
+				element.querySelectorAll('#asset1 > *, #asset2 > *'),
+				0.55,
+				{
+					opacity: 0,
+					x: '+=100',
+					ease: Linear.easeInOut,
+				},
+				0.05,
+			)
+			.to(
+				element.querySelector('.light'),
+				0.2,
+				{ opacity: 0.8, ease: Elastic.easeOut, delay: 0.5 },
+				'a',
+			)
+			.to(element.querySelector('.light'), 0.1, { opacity: 0 }, 'b')
+			.to(element.querySelector('.light'), 0.1, { opacity: 0.2 }, 'c')
+			.to(element.querySelector('#background'), 0.2, {opacity: 0.1, delay:0.5}, "a-=0.05")
+			.to(element.querySelector('#background'), 0.1, {opacity: 1}, "b-=0.05")
+			.to(element.querySelector('#background'), 0.1, {opacity: 0.5}, "c-=0.05")
+			.to(element.querySelector('#background'), 0.2, {opacity: 1, fill: '#FDD10D'})
+			.fromTo(element.querySelector('#lamp-shadows'), 0.2, {opacity: 0},{opacity: 0.2, delay:0.5}, "a-=0.05")
+			.to(element.querySelector('#lamp-shadows'), 0.1, {opacity: 1}, "b-=0.05")
+			.to(element.querySelector('#lamp-shadows'), 0.1, {opacity: 0.5}, "c-=0.05");
 	}, []);
 
 	return (
@@ -73,7 +143,7 @@ export function LampSvg(props) {
 					d='M851 627.2h280.4v10.5H851zM47.7 626.7h33v6.6h-33z'
 				/>
 			</g>
-			<g>
+			<g id='computer'>
 				<path
 					fill='#888889'
 					stroke='#050606'
@@ -139,7 +209,7 @@ export function LampSvg(props) {
 					fill='#434445'
 				/>
 			</g>
-			<g>
+			<g id='keyboard'>
 				<path
 					d='M692.9 606.8H363.5V602c0-4 3.2-7.2 7.2-7.2h315c4 0 7.3 3.3 7.3 7.3v4.7z'
 					fill='#e5e9ed'
@@ -157,22 +227,38 @@ export function LampSvg(props) {
 			</g>
 			<g>
 				<g id='lamp' stroke='#0b0b0b' strokeMiterlimit={10}>
-					<g fill='#228370'>
+					<g fill='#228370' id='lamp-line-c'>
 						<path d='M187.9 333.9l6.9 3.8-123.9 79.4-5.7-5.5 122.7-77.7M198.6 342.1l6.9 4.8-121.4 78.3-5.1-5.5 119.6-77.6' />
 					</g>
-					<ellipse cx={193.8} cy={347.5} rx={18.5} ry={19.3} fill='#228370' />
+					<ellipse
+						id='lamp-head-1'
+						cx={193.8}
+						cy={347.5}
+						rx={18.5}
+						ry={19.3}
+						fill='#228370'
+					/>
 					<path
+						className='lamp-head-2'
 						d='M225.9 393.2s13 10.9 26.6 2.5c2.4-1.5 4.4-3.9 5.7-6.6 3.3-6.8 7.6-20.6-5-31.8l-27.3 35.9z'
 						fill='#e8df9a'
 					/>
 					<path
+						className='lamp-head-2'
 						d='M270.5 319.1c-20.6-7.9-47.5-7.3-64.6 4.4-11.4 7.8-20 19-24.3 33.7-8.6 29.1 1.8 61 22.5 79.4 1.3 1.2 3.3 1 4.3-.5L285.7 330c.7-.9.5-2.3-.4-2.9-4.5-3.3-9.4-6-14.8-8z'
 						fill='#3fbda4'
 					/>
-					<g fill='#228370'>
+					<g fill='#228370' id='lamp-line-b'>
 						<path d='M69.7 432.6l4.9-6.3 51.2 141.5-6.3 4.8-49.8-140M81.6 429.1l5.9-6.2 50.7 138.9-6.2 4.2-50.4-136.9' />
 					</g>
-					<ellipse cx={80.2} cy={422.9} rx={19.7} ry={20.5} fill='#3fbda4' />
+					<ellipse
+						id='lamp-circle'
+						cx={80.2}
+						cy={422.9}
+						rx={19.7}
+						ry={20.5}
+						fill='#3fbda4'
+					/>
 				</g>
 				<path
 					className='prefix__lamp-leg'
@@ -191,7 +277,12 @@ export function LampSvg(props) {
 						fill='#70baaf'
 					/>
 				</g>
-				<g id='lampbt-2'>
+				<polyline
+					class='light'
+					style={{ opacity: 0, fill: '#FCF1C4' }}
+					points='276.4,343 781.8,605.3 312.8,606.8 223,418.9  '
+				/>
+				<g id='lamp-shadows'>
 					<path
 						d='M182.3 357.8c-8.4 28.4 1.9 61.2 23.2 78.5 1.2-.5-1.2.5 0 0l-3.4-108.7c-9.2 7.5-16.1 17.6-19.8 30.2zM61.3 422.9c0 10.7 8.4 19.6 18.2 19.6h.6L74 404.3c-7.2 2.5-12.7 9.9-12.7 18.6zM83 590.7h39l-8.3-27.8C90.4 569.8 83 590.7 83 590.7z'
 						fill='#2faf97'
@@ -205,57 +296,59 @@ export function LampSvg(props) {
 					/>
 				</g>
 			</g>
-			<g>
-				<path
-					d='M724.1 606.7s0-8.6 12.9-14.3c8.7-3.9 18.7-4 27.5-.6 6.8 2.6 13.7 7.2 13.7 15l-54.1-.1z'
-					fill='#e5e9ed'
-					stroke='#0b0b0b'
-					strokeMiterlimit={10}
-				/>
-				<path
-					d='M764.5 592.5c-3.9-1.4-9-2.6-13.3-2.4v15.7l26.1.1c-.1-4.3-4.3-10.3-12.8-13.4z'
-					fill='#d1d4d6'
-				/>
-			</g>
-			<g>
-				<path
-					fill='#f9efe5'
-					stroke='#0d0d0d'
-					strokeMiterlimit={10}
-					d='M849.8 516.5l15.3 90.3H908l14.4-90.3h-68.7'
-				/>
-				<path fill='#f3e5d4' d='M921.2 519.5l-35.1-3-.4 89.4h21.7z' />
-				<path
-					fill='#be5532'
-					stroke='#0d0d0d'
-					strokeMiterlimit={10}
-					d='M853.3 546.7l6.4 35h53.1l6.1-35z'
-				/>
-				<path fill='#ad4025' d='M917.8 547.7h-31.6l-.1 33.2h26.1z' />
-				<path
-					fill='none'
-					stroke='#9b3021'
-					strokeLinecap='round'
-					strokeMiterlimit={10}
-					d='M858.3 551.2h56.4M860.1 557.9h53.6M861.1 565.8h50.5M862.1 573.1h48.4M862 578.7h47.5'
-				/>
-				<path
-					fill='#be5532'
-					stroke='#0b0b0b'
-					strokeMiterlimit={10}
-					d='M845.3 524.5h80.9v-8h-80.9z'
-				/>
-				<path
-					fill='#be5532'
-					stroke='#070808'
-					strokeMiterlimit={10}
-					d='M851.8 505.9l-2 10.6h71.4l-2.3-10.6z'
-				/>
-				<path
-					fill='#ad4025'
-					d='M925.2 517.5h-38.5v6.1l38.5.2zM920 515.7l-1.8-9-31.4.1v8.9z'
-				/>
-				<path fill='#9b3021' d='M850.9 515.7l.3-2h68.4l.4 2z' />
+			<g id='assets'>
+				<g id='asset1'>
+					<path
+						d='M724.1 606.7s0-8.6 12.9-14.3c8.7-3.9 18.7-4 27.5-.6 6.8 2.6 13.7 7.2 13.7 15l-54.1-.1z'
+						fill='#e5e9ed'
+						stroke='#0b0b0b'
+						strokeMiterlimit={10}
+					/>
+					<path
+						d='M764.5 592.5c-3.9-1.4-9-2.6-13.3-2.4v15.7l26.1.1c-.1-4.3-4.3-10.3-12.8-13.4z'
+						fill='#d1d4d6'
+					/>
+				</g>
+				<g id='asset2'>
+					<path
+						fill='#f9efe5'
+						stroke='#0d0d0d'
+						strokeMiterlimit={10}
+						d='M849.8 516.5l15.3 90.3H908l14.4-90.3h-68.7'
+					/>
+					<path fill='#f3e5d4' d='M921.2 519.5l-35.1-3-.4 89.4h21.7z' />
+					<path
+						fill='#be5532'
+						stroke='#0d0d0d'
+						strokeMiterlimit={10}
+						d='M853.3 546.7l6.4 35h53.1l6.1-35z'
+					/>
+					<path fill='#ad4025' d='M917.8 547.7h-31.6l-.1 33.2h26.1z' />
+					<path
+						fill='none'
+						stroke='#9b3021'
+						strokeLinecap='round'
+						strokeMiterlimit={10}
+						d='M858.3 551.2h56.4M860.1 557.9h53.6M861.1 565.8h50.5M862.1 573.1h48.4M862 578.7h47.5'
+					/>
+					<path
+						fill='#be5532'
+						stroke='#0b0b0b'
+						strokeMiterlimit={10}
+						d='M845.3 524.5h80.9v-8h-80.9z'
+					/>
+					<path
+						fill='#be5532'
+						stroke='#070808'
+						strokeMiterlimit={10}
+						d='M851.8 505.9l-2 10.6h71.4l-2.3-10.6z'
+					/>
+					<path
+						fill='#ad4025'
+						d='M925.2 517.5h-38.5v6.1l38.5.2zM920 515.7l-1.8-9-31.4.1v8.9z'
+					/>
+					<path fill='#9b3021' d='M850.9 515.7l.3-2h68.4l.4 2z' />
+				</g>
 			</g>
 		</svg>
 	);
