@@ -7,11 +7,14 @@ export function LampSvg(props) {
 	useEffect(() => {
 		const tl = new TimelineMax();
 		const element = wrapperRef.current;
-		tl.from(element.querySelector('#background'), 0.5, {
+		tl.set(element.querySelector('#lampbt-2'), {
 			opacity: 0,
-			scale: 0,
-			transformOrigin: 'center center',
 		})
+			.from(element.querySelector('#background'), 0.5, {
+				opacity: 0,
+				scale: 0,
+				transformOrigin: 'center center',
+			})
 			.staggerFrom(
 				element.querySelectorAll('#table, #table-legs'),
 				0.5,
