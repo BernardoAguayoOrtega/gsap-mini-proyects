@@ -5,8 +5,90 @@ export function LampSvg(props) {
 	const wrapperRef = useRef(undefined);
 
 	const switchLights = () => {
-		
-	}
+		const tl = new TimelineMax();
+		const element = wrapperRef.current;
+
+		tl.to(
+			element.querySelector('.light'),
+			0.2,
+			{ opacity: 0.8, ease: Elastic.easeOut, delay: 0.5 },
+			'a',
+		)
+			.to(element.querySelector('.light'), 0.1, { opacity: 0.2 }, 'b')
+			.to(element.querySelector('.light'), 0.1, { opacity: 0 }, 'c')
+			.to(
+				element.querySelector('#background'),
+				0.2,
+				{ opacity: 0.1, delay: 0.5 },
+				'a-=0.05',
+			)
+			.to(element.querySelector('#background'), 0.1, { opacity: 1 }, 'b-=0.05')
+			.to(
+				element.querySelector('#background'),
+				0.1,
+				{ opacity: 0.5 },
+				'c-=0.05',
+			)
+			.to(element.querySelector('#background'), 0.2, {
+				opacity: 1,
+				fill: '#FDD10D',
+			})
+			.fromTo(
+				element.querySelector('#lamp-shadows'),
+				0.2,
+				{ opacity: 0 },
+				{ opacity: 0.2, delay: 0.5 },
+				'a-=0.05',
+			)
+			.to(
+				element.querySelector('#lamp-shadows'),
+				0.1,
+				{ opacity: 1 },
+				'b-=0.05',
+			)
+			.to(
+				element.querySelector('#lamp-shadows'),
+				0.1,
+				{ opacity: 0.5 },
+				'c-=0.05',
+			)
+			.to(
+				element.querySelector('#background'),
+				0.2,
+				{ opacity: 0.1, delay: 0.5 },
+				'a-=0.05',
+			)
+			.to(element.querySelector('#background'), 0.1, { opacity: 1 }, 'b-=0.05')
+			.to(
+				element.querySelector('#background'),
+				0.1,
+				{ opacity: 0.5 },
+				'c-=0.05',
+			)
+			.to(element.querySelector('#background'), 0.2, {
+				opacity: 1,
+				fill: '#2c3e50',
+			})
+			.fromTo(
+				element.querySelector('#lamp-shadows'),
+				0.2,
+				{ opacity: 1 },
+				{ opacity: 0.2, delay: 0.5 },
+				'a-=0.05',
+			)
+			.to(
+				element.querySelector('#lamp-shadows'),
+				0.1,
+				{ opacity: 0.5 },
+				'b-=0.05',
+			)
+			.to(
+				element.querySelector('#lamp-shadows'),
+				0.1,
+				{ opacity: 0 },
+				'c-=0.05',
+			);
+	};
 
 	useEffect(() => {
 		const tl = new TimelineMax();
@@ -99,13 +181,42 @@ export function LampSvg(props) {
 			)
 			.to(element.querySelector('.light'), 0.1, { opacity: 0 }, 'b')
 			.to(element.querySelector('.light'), 0.1, { opacity: 0.2 }, 'c')
-			.to(element.querySelector('#background'), 0.2, {opacity: 0.1, delay:0.5}, "a-=0.05")
-			.to(element.querySelector('#background'), 0.1, {opacity: 1}, "b-=0.05")
-			.to(element.querySelector('#background'), 0.1, {opacity: 0.5}, "c-=0.05")
-			.to(element.querySelector('#background'), 0.2, {opacity: 1, fill: '#FDD10D'})
-			.fromTo(element.querySelector('#lamp-shadows'), 0.2, {opacity: 0},{opacity: 0.2, delay:0.5}, "a-=0.05")
-			.to(element.querySelector('#lamp-shadows'), 0.1, {opacity: 1}, "b-=0.05")
-			.to(element.querySelector('#lamp-shadows'), 0.1, {opacity: 0.5}, "c-=0.05");
+			.to(
+				element.querySelector('#background'),
+				0.2,
+				{ opacity: 0.1, delay: 0.5 },
+				'a-=0.05',
+			)
+			.to(element.querySelector('#background'), 0.1, { opacity: 1 }, 'b-=0.05')
+			.to(
+				element.querySelector('#background'),
+				0.1,
+				{ opacity: 0.5 },
+				'c-=0.05',
+			)
+			.to(element.querySelector('#background'), 0.2, {
+				opacity: 1,
+				fill: '#FDD10D',
+			})
+			.fromTo(
+				element.querySelector('#lamp-shadows'),
+				0.2,
+				{ opacity: 0 },
+				{ opacity: 0.2, delay: 0.5 },
+				'a-=0.05',
+			)
+			.to(
+				element.querySelector('#lamp-shadows'),
+				0.1,
+				{ opacity: 1 },
+				'b-=0.05',
+			)
+			.to(
+				element.querySelector('#lamp-shadows'),
+				0.1,
+				{ opacity: 0.5 },
+				'c-=0.05',
+			);
 	}, []);
 
 	return (
@@ -273,6 +384,8 @@ export function LampSvg(props) {
 						fill='#3fbda4'
 					/>
 					<path
+						style={{ cursor: 'pointer' }}
+						onClick={switchLights}
 						d='M147.9 564s8.8 4.6 17-.4c.5-.3 1 .1 1 .8v9.2s-13.8-8.3-18-9.6z'
 						fill='#70baaf'
 					/>
