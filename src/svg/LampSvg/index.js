@@ -155,134 +155,134 @@ export function LampSvg(props) {
 		setIsOn((prevState) => !prevState);
 	};
 
-	useEffect(() => {
-		const tl = new TimelineMax();
-		const element = wrapperRef.current;
-		tl.set(element.querySelector('#lamp-shadows'), {
-			opacity: 0,
-		})
-			.from(element.querySelector('#background'), 0.5, {
-				opacity: 0,
-				scale: 0,
-				transformOrigin: 'center center',
-			})
-			.staggerFrom(
-				element.querySelectorAll('#table, #table-legs'),
-				0.5,
-				{ y: '-=200', opacity: 0, ease: Elastic.easeOut },
-				0.1,
-			)
-			.from(element.querySelector('.prefix__lamp-leg'), 0.2, {
-				opacity: 0,
-				x: '-200',
-				ease: Elastic.easeOut,
-			})
-			.from(element.querySelector('#lampbt-1'), 0.2, {
-				opacity: 0,
-				scale: 0,
-				transformOrigin: 'center center',
-			})
-			.from(element.querySelector('#lamp-line-b'), 0.35, {
-				opacity: 0,
-				transformOrigin: '100% 100%',
-				rotation: '-180deg',
-			})
-			.from(element.querySelector('#lamp-circle'), 0.2, {
-				opacity: 0,
-				x: '-=100',
-				y: '-=100',
-			})
-			.from(element.querySelector('#lamp-line-c'), 0.35, {
-				opacity: 0,
-				transformOrigin: '0% 100%',
-				rotation: '-180deg',
-			})
-			.from(element.querySelector('#lamp-head-1'), 0.2, {
-				opacity: 0,
-				scale: 0,
-				ease: Elastic.easeOut,
-			})
-			.from(element.querySelectorAll('.lamp-head-2'), 0.2, {
-				opacity: 0,
-				transformOrigin: '60% 60%',
-				rotation: '60deg',
-			})
-			.staggerFrom(
-				element.querySelectorAll('#computer > *'),
-				1,
-				{
-					opacity: 0,
-					scale: 0,
-					transformOrigin: 'center center',
-					ease: Back.easeOut,
-				},
-				0.2,
-			)
-			.staggerFrom(
-				element.querySelectorAll('#keyboard > *'),
-				1,
-				{
-					opacity: 0,
-					y: '-=100',
-					ease: Linear.easeInOut,
-				},
-				0.2,
-			)
-			.staggerFrom(
-				element.querySelectorAll('#asset1 > *, #asset2 > *'),
-				0.55,
-				{
-					opacity: 0,
-					x: '+=100',
-					ease: Linear.easeInOut,
-				},
-				0.05,
-			)
-			.to(
-				element.querySelector('.light'),
-				0.2,
-				{ opacity: 0.8, ease: Elastic.easeOut, delay: 0.5 },
-				'a',
-			)
-			.to(element.querySelector('.light'), 0.1, { opacity: 0 }, 'b')
-			.to(element.querySelector('.light'), 0.1, { opacity: 0.2 }, 'c')
-			.to(
-				element.querySelector('#background'),
-				0.2,
-				{ opacity: 0.1, delay: 0.5 },
-				'a-=0.05',
-			)
-			.to(element.querySelector('#background'), 0.1, { opacity: 1 }, 'b-=0.05')
-			.to(
-				element.querySelector('#background'),
-				0.1,
-				{ opacity: 0.5 },
-				'c-=0.05',
-			)
-			.to(element.querySelector('#background'), 0.2, {
-				opacity: 1,
-				fill: '#FDD10D',
-			})
-			.fromTo(
-				element.querySelector('#lamp-shadows'),
-				0.2,
-				{ opacity: 0 },
-				{ opacity: 0.2, delay: 0.5 },
-				'a-=0.05',
-			)
-			.to(
-				element.querySelector('#lamp-shadows'),
-				0.1,
-				{ opacity: 1 },
-				'b-=0.05',
-			)
-			.to(
-				element.querySelector('#lamp-shadows'),
-				0.1,
-				{ opacity: 0.5 },
-				'c-=0.05',
-			);
-	}, []);
+	// useEffect(() => {
+	// 	const tl = new TimelineMax();
+	// 	const element = wrapperRef.current;
+	// 	tl.set(element.querySelector('#lamp-shadows'), {
+	// 		opacity: 0,
+	// 	})
+	// 		.from(element.querySelector('#background'), 0.5, {
+	// 			opacity: 0,
+	// 			scale: 0,
+	// 			transformOrigin: 'center center',
+	// 		})
+	// 		.staggerFrom(
+	// 			element.querySelectorAll('#table, #table-legs'),
+	// 			0.5,
+	// 			{ y: '-=200', opacity: 0, ease: Elastic.easeOut },
+	// 			0.1,
+	// 		)
+	// 		.from(element.querySelector('.prefix__lamp-leg'), 0.2, {
+	// 			opacity: 0,
+	// 			x: '-200',
+	// 			ease: Elastic.easeOut,
+	// 		})
+	// 		.from(element.querySelector('#lampbt-1'), 0.2, {
+	// 			opacity: 0,
+	// 			scale: 0,
+	// 			transformOrigin: 'center center',
+	// 		})
+	// 		.from(element.querySelector('#lamp-line-b'), 0.35, {
+	// 			opacity: 0,
+	// 			transformOrigin: '100% 100%',
+	// 			rotation: '-180deg',
+	// 		})
+	// 		.from(element.querySelector('#lamp-circle'), 0.2, {
+	// 			opacity: 0,
+	// 			x: '-=100',
+	// 			y: '-=100',
+	// 		})
+	// 		.from(element.querySelector('#lamp-line-c'), 0.35, {
+	// 			opacity: 0,
+	// 			transformOrigin: '0% 100%',
+	// 			rotation: '-180deg',
+	// 		})
+	// 		.from(element.querySelector('#lamp-head-1'), 0.2, {
+	// 			opacity: 0,
+	// 			scale: 0,
+	// 			ease: Elastic.easeOut,
+	// 		})
+	// 		.from(element.querySelectorAll('.lamp-head-2'), 0.2, {
+	// 			opacity: 0,
+	// 			transformOrigin: '60% 60%',
+	// 			rotation: '60deg',
+	// 		})
+	// 		.staggerFrom(
+	// 			element.querySelectorAll('#computer > *'),
+	// 			1,
+	// 			{
+	// 				opacity: 0,
+	// 				scale: 0,
+	// 				transformOrigin: 'center center',
+	// 				ease: Back.easeOut,
+	// 			},
+	// 			0.2,
+	// 		)
+	// 		.staggerFrom(
+	// 			element.querySelectorAll('#keyboard > *'),
+	// 			1,
+	// 			{
+	// 				opacity: 0,
+	// 				y: '-=100',
+	// 				ease: Linear.easeInOut,
+	// 			},
+	// 			0.2,
+	// 		)
+	// 		.staggerFrom(
+	// 			element.querySelectorAll('#asset1 > *, #asset2 > *'),
+	// 			0.55,
+	// 			{
+	// 				opacity: 0,
+	// 				x: '+=100',
+	// 				ease: Linear.easeInOut,
+	// 			},
+	// 			0.05,
+	// 		)
+	// 		.to(
+	// 			element.querySelector('.light'),
+	// 			0.2,
+	// 			{ opacity: 0.8, ease: Elastic.easeOut, delay: 0.5 },
+	// 			'a',
+	// 		)
+	// 		.to(element.querySelector('.light'), 0.1, { opacity: 0 }, 'b')
+	// 		.to(element.querySelector('.light'), 0.1, { opacity: 0.2 }, 'c')
+	// 		.to(
+	// 			element.querySelector('#background'),
+	// 			0.2,
+	// 			{ opacity: 0.1, delay: 0.5 },
+	// 			'a-=0.05',
+	// 		)
+	// 		.to(element.querySelector('#background'), 0.1, { opacity: 1 }, 'b-=0.05')
+	// 		.to(
+	// 			element.querySelector('#background'),
+	// 			0.1,
+	// 			{ opacity: 0.5 },
+	// 			'c-=0.05',
+	// 		)
+	// 		.to(element.querySelector('#background'), 0.2, {
+	// 			opacity: 1,
+	// 			fill: '#FDD10D',
+	// 		})
+	// 		.fromTo(
+	// 			element.querySelector('#lamp-shadows'),
+	// 			0.2,
+	// 			{ opacity: 0 },
+	// 			{ opacity: 0.2, delay: 0.5 },
+	// 			'a-=0.05',
+	// 		)
+	// 		.to(
+	// 			element.querySelector('#lamp-shadows'),
+	// 			0.1,
+	// 			{ opacity: 1 },
+	// 			'b-=0.05',
+	// 		)
+	// 		.to(
+	// 			element.querySelector('#lamp-shadows'),
+	// 			0.1,
+	// 			{ opacity: 0.5 },
+	// 			'c-=0.05',
+	// 		);
+	// }, []);
 
 	return (
 		<svg
@@ -457,7 +457,7 @@ export function LampSvg(props) {
 				</g>
 				<polyline
 					class='light'
-					style={{ opacity: 0, fill: '#FCF1C4' }}
+					style={{ opacity: 1, fill: '#FCF1C4' }}
 					points='276.4,343 781.8,605.3 312.8,606.8 223,418.9  '
 				/>
 				<g id='lamp-shadows'>
