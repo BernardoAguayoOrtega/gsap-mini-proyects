@@ -81,10 +81,164 @@ export function Alien(props) {
 	const lightOpen = () => {
 		const tl = gsap
 			.timeline({ defaults: { ease: Power1.easeOut } })
-			.to('.sheep', { duration: 0.01, autoAlpha: 1 });
+			.to('.sheep', { duration: 0.01, autoAlpha: 1 })
+			.from(
+				'.light',
+				{
+					duration: 0.2,
+					scaleX: 0,
+					transformOrigin: '50% 0%',
+				},
+				0,
+			)
+			.to(
+				'.groundlight',
+				{
+					autoAlpha: 1,
+				},
+				0,
+			)
+			.from(
+				'.groundlight',
+				{
+					duration: 0.2,
+					scale: 0,
+					transformOrigin: '50%, 50%',
+				},
+				0,
+			)
+			.to(
+				'.lightcircle',
+				{
+					duration: 0.2,
+					opacity: 1,
+				},
+				0,
+			)
+			.to(
+				'.lightring',
+				{
+					fill: '#9bf1ed',
+				},
+				0,
+			);
 
 		return tl;
 	};
+
+	function sheep() {
+		const tl = gsap
+			.timeline({ defaults: { ease: Power1.easeOut } })
+			.from('.head', {
+				duration: 0.2,
+				ease: Power1.easeInOut,
+				rotate: '30deg',
+				transformOrigin: '0% 50%',
+				xPercent: 5,
+				yPercent: 32,
+			})
+			.to(
+				'.head',
+				{
+					duration: 0.4,
+					ease: Power1.easeInOut,
+					rotate: '-80deg',
+					transformOrigin: '0% 50%',
+					xPercent: 10,
+					yPercent: 10,
+				},
+				'+=1',
+			)
+
+			.to('.sheep', {
+				duration: 0.4,
+				ease: Power1.easeInOut,
+				rotate: '50deg',
+				transformOrigin: '100% 50%',
+				yPercent: -30,
+				xPercent: -20,
+			})
+			.to(
+				'.head',
+				{
+					duration: 0.4,
+					ease: Power1.easeInOut,
+					rotate: '-15deg',
+					transformOrigin: '0% 50%',
+				},
+				'+=0.2',
+			)
+			.fromTo(
+				'.leg',
+				{
+					duration: 0.1,
+					rotate: '30deg',
+					transformOrigin: '50% 0%',
+					immediateRender: false,
+				},
+				{
+					duration: 0.1,
+					rotate: '-30deg',
+					transformOrigin: '50% 0%',
+					immediateRender: false,
+					stagger: {
+						each: 0.1,
+						yoyo: true,
+						repeat: 12,
+						repeatDelay: 0,
+						ease: 'Power1.easeInOut',
+						from: 'start',
+					},
+				},
+				'-=1',
+			)
+			.to(
+				'.sheep',
+				{
+					duration: 0.4,
+					ease: Power1.easeInOut,
+					transformOrigin: '50% 50%',
+					yPercent: -250,
+					scale: 0.6,
+					opacity: 0,
+				},
+				'-=0.8',
+			);
+
+		return tl;
+	}
+
+	function alienExit() {
+		const tl = gsap.timeline({ defaults: { ease: Power1.easeOut } })
+		.to( ".light", {
+				duration: 0.2,
+				scaleX: 0,
+				transformOrigin: "50% 0%"
+			},0)
+		.to( ".groundlight", {
+				duration: 0.2,
+				scale: 0,
+				transformOrigin: "50%, 50%"
+			},0)
+		.to( ".lightcircle", {
+				duration: 0.2,
+				opacity: 0
+			},0)
+			.to( ".lightring", {
+				fill: "#fff"
+			},0)
+			.to(".alien", {
+					ease: Power1.easeOut,
+					duration: 1.5,
+					scale: 0,
+					motionPath:{
+						path: exitPathData,
+						start: 1,
+						end: 0,
+					}
+			},"-=0.3")
+			return tl;
+	}
 
 	React.useEffect(() => {
 		gsap.registerPlugin(MotionPathPlugin);
@@ -111,9 +265,9 @@ export function Alien(props) {
 		const mainTimeline = gsap
 			.timeline({ defaults: { ease: Power1.easeOut } })
 			.add(alien(), 0.5)
-			.add(lightOpen(), 3.2);
-		// .add(sheep(), 3.4)
-		// .add(alienExit(), 7);
+			.add(lightOpen(), 3.2)
+			.add(sheep(), 3.4)
+			.add(alienExit(), 7);
 	});
 
 	return (
@@ -241,7 +395,7 @@ export function Alien(props) {
 				</g>
 				<g opacity='0' class='alien'>
 					<ellipse
-						class='groundlight'
+						className='groundlight'
 						opacity='0'
 						cx='468.66'
 						cy='806.4'
@@ -250,11 +404,11 @@ export function Alien(props) {
 						ry='31.9'
 					/>
 					<path
-						class='light'
-						fill='url(#gradientTwo)'
+						className='light'
+						fill='url(#prefix__b)'
 						d='M586.32 804.28l-83.71-306.01-70.33.18L351 806.5'
 					/>
-					<g class='spaceship'>
+					<g className='spaceship'>
 						<path
 							fill='#344776'
 							d='M401.16 454.48s18.54-53.65 68.07-54.16 67 54.16 67 54.16z'
@@ -272,12 +426,12 @@ export function Alien(props) {
 							d='M591.89 490.07C577 515 418.8 507.92 418.8 507.92s-88.42-5.81-73.06-25.73S453.66 459.77 492.27 461s109.93 11.88 99.62 29.05'
 						/>
 						<path
-							class='lightring'
+							className='lightring'
 							fill='#fff'
 							d='M425.36 508.5s-6.82-3.38 0-8.2 28.49-8.18 47-7.7 44.79 5.29 41.9 13-70.67 14.72-88.9 2.9z'
 						/>
 						<path
-							class='lightcircle'
+							className='lightcircle'
 							opacity='0'
 							fill='#fff'
 							d='M430 508.78s14-6.82 39.19-6.6 36.61 5.62 36.61 5.62-3.41 15-36.39 14.35S430 508.78 430 508.78z'
