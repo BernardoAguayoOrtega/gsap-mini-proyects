@@ -1,4 +1,4 @@
-import { TimelineMax, gsap } from 'gsap/all';
+import { TimelineMax } from 'gsap/all';
 import { useEffect, useRef, useState } from 'react';
 import './styles.css';
 
