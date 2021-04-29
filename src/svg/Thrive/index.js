@@ -1,9 +1,19 @@
 import { TimelineMax } from 'gsap/all';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import './styles.css';
 
 export const Thrive = () => {
 	const ref = useRef(undefined);
+
+	const elementInViewport = (element) => {
+		const top = element?.getBoundingClientRect().top;
+		console.log(Math.floor(top));
+		if (Math.floor(top) <= 500) {
+			mainTl(element);
+		} else {
+			console.log('noo');
+		}
+	};
 
 	const clean = () => {
 		const tl = new TimelineMax();
@@ -15,15 +25,18 @@ export const Thrive = () => {
 		return tl;
 	};
 
-	useEffect(() => {
-		const element = ref.current;
-		const tl = new TimelineMax();
+	const mainTl = (element) => {
+		const tl = new TimelineMax({ repeat: 0 });
 
 		tl.add(clean())
 			.staggerFrom(
 				element.querySelectorAll('#gray-figures > *'),
 				1,
-				{ scale: 0, transformOrigin: 'center center' },
+				{
+					scale: 0,
+					transformOrigin: 'center center',
+					scrollTrigger: '#container',
+				},
 				0.2,
 			)
 			.to(element.querySelectorAll('#letters > text'), 1, { autoAlpha: 1 })
@@ -39,10 +52,19 @@ export const Thrive = () => {
 				},
 				0.1,
 			);
+
+		return { tl };
+	};
+
+	useEffect(() => {
+		const element = ref.current;
+		setInterval(() => {
+			elementInViewport(element);
+		}, 1000);
 	}, []);
 
 	return (
-		<div id='container'>
+		<div className='container' id='container'>
 			<svg
 				ref={ref}
 				id='prefix__Capa_1'

@@ -3,14 +3,24 @@
 }
 
 #green-figures>path {
-  cursor: pointer;
-  transition: 1s;
+  transition: .25s;
 }
 
 #green-figures>path:hover {
-  transition: 1s;
+  transition: .25s;
   z-index: 100;
   filter: drop-shadow(-1px 6px 3px rgba(50, 50, 0, 0.5));
+}
+
+#letters>text {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  display: inherit;
+  pointer-events:none;
 }
 
 @keyframes shadow-drop-2-center {
