@@ -3,11 +3,11 @@
 }
 
 #green-figures>polygon {
-  transition: 1s;
+  transition: .25s;
 }
 
 #green-figures>polygon:hover {
-  transition: 1s;
+  transition: .25s;
   z-index: 100;
   filter: drop-shadow(-1px 6px 3px rgba(50, 50, 0, 0.5));
 }
@@ -20,5 +20,5 @@
   -ms-user-select: none;
   user-select: none;
   display: inherit;
-  pointer-events:none;
+  pointer-events: none;
 }

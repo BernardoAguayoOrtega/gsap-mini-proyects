@@ -29,11 +29,14 @@ const clean = () => {
 		.set('#container', { display: 'block' }, 0);
 };
 
-clean();
+const main = () => {
+	clean();
+	const scene = new ScrollMagic.Scene({
+		triggerElement: '#stage',
+		triggerHook: 1,
+	})
+		.setTween(tl)
+		.addTo(controller);
+};
 
-var scene = new ScrollMagic.Scene({
-	triggerElement: '#stage',
-	triggerHook: 1,
-})
-	.setTween(tl)
-	.addTo(controller);
+main();
